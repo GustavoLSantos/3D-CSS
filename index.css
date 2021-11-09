@@ -1,0 +1,169 @@
+:root {
+    --boxColor: #0ff7;
+    --rotateSpeed: 20s;
+    --bounceSpeed: 1.5s;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+body {
+    background-color: #000;
+    min-height: 100vh;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    font-size: 75px;   
+    perspective: 10em; 
+    perspective-origin: 50% calc(50% - 2em);
+}
+
+.scene {
+    position: relative;
+    top: 2em;
+    transform-style: preserve-3d;
+    animation: sceneRotate var(--rotateSpeed) infinite linear;
+}
+
+@keyframes sceneRotate {
+    to { transform: rotateY(360deg);} 
+ }
+
+ @keyframes ballBounce {
+    0%, 100% { bottom: 0.5em;}
+    50% {bottom: 3em; animation-timing-function: ease-in;}
+ }
+
+ @keyframes ballShadow {
+    0%, 8%, 93.5%, 100% { transform: scale(1); opacity: 1;}
+    50% {transform: scale(2); opacity: 0.5; animation-timing-function: ease-in;}
+ }
+.ball {
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: absolute;
+    left: -.5em;
+    bottom: 1em;
+    background-image: radial-gradient(
+        circle at top,
+        rgb(184, 227, 245),
+        40%,
+        #000
+    );
+    animation: 
+    ballBounce var(--bounceSpeed) infinite ease-out,
+    sceneRotate var(--rotateSpeed) infinite linear reverse;
+}
+
+.ballShadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(#0007, #0000 50%);
+    animation: ballShadow var(--bounceSpeed) infinite ease-out;
+}
+
+.cube {
+    width: 2em;
+    height: 2em;
+    transform-style: preserve-3d;
+    position: absolute;
+    bottom: -1em;
+    left: -1em;
+    animation: cubeHeight var(--bounceSpeed) infinite ease-out;
+    
+}
+
+@keyframes cubeHeight {
+    0%, 100% { height: 1.5em;}
+    6.5%, 93.5% { height: 2em; }
+ }
+
+.left, .right, .front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--boxColor);
+    box-shadow: 0 0 0.5em #000a inset;
+}
+
+.front {
+    cursor: pointer;
+    transform: translateZ(1em);
+}
+
+.textFront {
+    text-align: center;
+    margin: 0%;
+    font-size: 50%;
+    margin-top: 30%;
+    font-family: 'Bebas Neue', cursive;
+    color: rgba(22, 54, 54, 0.644);
+}
+
+
+
+.right {
+    transform: rotateY(90deg) translateZ(1em);
+}
+
+.left {
+    transform: rotateY(-90deg) translateZ(1em);
+}
+
+.back {
+    cursor: pointer;
+    transform: translateZ(-1em);
+}
+
+.textBack {
+    text-align: center;
+    margin: 0%;
+    font-size: 50%;
+    margin-top: 30%;
+    font-family: 'Bebas Neue', cursive;
+    color: rgba(22, 54, 54, 0.644);
+    transform: rotateY(180deg);
+}
+
+.top {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    background: var(--boxColor);
+    transform: translateY(-50%) rotateX(90deg);
+}
+
+.bottom {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    background: #0007;
+    bottom: 0;
+    transform: translateY(50%) rotateX(90deg);
+    box-shadow: 0 0 0.5em #000a inset;
+}
+
+.floor {
+    position: absolute;
+    top: -3.9em;
+    left: -4.5em;
+    transform: translate(-50%, -50%);
+    transform: rotateX(90deg);
+    width: 10em;
+    height: 10em;
+    background-image: radial-gradient(#0000, #000 75%), repeating-conic-gradient(from 45deg, #111 0deg 90deg, #222 90deg 180deg);
+    background-size: 100%, 1em 1em;
+}
+
+.title {
+    position: absolute;
+    top: 1em;
+    animation: titlePosition var(--bounceSpeed) infinite ease-out;
+}
+
+@keyframes titlePosition {
+    0%, 100% { top: 0.9em;}
+    6.5%, 93.5% { top: 1em; animation-timing-function: ease-in;}
+ }
